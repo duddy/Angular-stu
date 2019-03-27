@@ -1,0 +1,9 @@
+
+<h4>checked Count: {{checkedCnt}}</h4>
+<h4>checked List:</h4>
+<ul>
+  <li *ngFor="let item of _checkedData; let idx = index">
+    {{item.content}} <button (click)="onRemove(idx)">X</button>
+  </li>
+</ul>
+<app-result-graph></app-result-graph>
