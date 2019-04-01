@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SidebarMenu } from './scm-main/sidebar/sidebar.component';
 
 @Component({
   selector: 'poc-root',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'commerce-manager';
+  currentMenu: SidebarMenu;
 }
