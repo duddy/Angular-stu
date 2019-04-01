@@ -1,7 +1,10 @@
 <nav class="navbar navbar-toggleable fixed-top poc-navbar">
   <a class="navbar-brand text-white" href="/">{{appTitle}}</a>
   <div class="collapse navbar-collapse d-flex justify-content-end" id="nav-bar">
-    <button class="btn btn-warning mr-2"><i class="fa fa-plus"></i> product add </button>
+    <button class="btn btn-warning mr-2"
+      routerLink="/product-list/product/0" [queryParams]="{action: 'create'}">
+      <i class="fa fa-plus"></i> product add 
+    </button>
     <form class="form-inline">
       <input class="form-control mr-2" type="text" placeholder="product number" #searchInput>
       <button class="btn btn-warning" type="button"

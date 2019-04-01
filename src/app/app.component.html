@@ -2,16 +2,8 @@
 <div class="container-fluid">
   <div class="row">
     <poc-sidebar (changedMenu)="currentMenu=$event"></poc-sidebar>
-    <main class="col-10 offset-2 pt-3" [ngSwitch]="currentMenu">
-      <div *ngSwitchCase="'product'">
-        <poc-product-management></poc-product-management>
-      </div>
-      <div *ngSwitchCase="'category'">
-        <poc-category-management></poc-category-management>
-      </div>
-      <div *ngSwitchDefault>
-        <poc-main-dashboard></poc-main-dashboard>
-      </div>
+    <main class="col-10 offset-2 pt-3">
+      <router-outlet></router-outlet>
     </main>
   </div>
 </div>

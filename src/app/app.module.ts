@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ProductModule } from './product/product.module';
 import { CategoryModule } from './category/category.module';
 import { ScmMainModule } from './scm-main/scm-main.module';
+import { AppRoutingModuleModule } from './app-routing-module/app-routing-module.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ScmMainModule } from './scm-main/scm-main.module';
   ],
   imports: [
     BrowserModule, FormsModule,
-    ScmMainModule, ProductModule, CategoryModule
+    ScmMainModule, ProductModule, CategoryModule,
+    AppRoutingModuleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
