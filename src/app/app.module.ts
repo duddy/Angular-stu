@@ -15,6 +15,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap'
 @NgModule({
   declarations: [
     AppComponent
@@ -31,7 +32,8 @@ import { ToastrModule } from 'ngx-toastr';
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
-    })
+    }),
+    NgbPaginationModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

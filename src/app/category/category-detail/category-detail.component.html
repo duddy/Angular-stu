@@ -1,3 +1,72 @@
-<p>
-  category-detail works!
-</p>
+<h4>Category {{subTitle}}</h4>
+<form (ngSubmit)="submit()" [formGroup]="categoryForm" novalidate>
+  <div class="container-fluid p-2 rounded">
+    <div class="row my-4">
+      <div class="col-12">
+        <div class="input-group">
+          <span class="input-group-addon">number</span>
+          <input type="number" class="form-control" formControlName="no" readonly/>
+        </div>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12">
+        <div class="input-group">
+          <span class="input-group-addon">Category Name</span>
+          <input type="text" class="form-control" formControlName="name"/>
+        </div>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12">
+        <div class="input-group">
+          <textarea class="form-control" rows="4" placeholder="Item detail Desc" formControlName="desc"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12">
+        <label class="mr-3">Condition:</label>
+        <label class="custom-control custom-radio">
+          <input type="radio" formControlName="isUse" class="custom-control-input" [value]="true">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">used</span>
+        </label>
+        <label class="custom-control custom-radio">
+          <input type="radio" formControlName="isUse" class="custom-control-input" [value]="false">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">New</span>
+        </label>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12">
+        <div class="input-group">
+          <span class="input-group-addon">C-Date</span>
+          <input type="text" class="form-control" formControlName="createdTime" readonly/>
+        </div>
+      </div>
+    </div>
+    <div class="row my-4" *ngIf="actionMode !== 'create'">
+      <div class="col-12">
+        <div class="input-group">
+          <span class="input-group-addon">M-Date</span>
+          <input type="text" class="form-control" formControlName="updatedTime" readonly/>
+        </div>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12 text-right">
+        <button type="submit" class="btn btn-info btn-sm mr-2" [disabled]="!categoryForm.valid">
+          <i class="fa fa-check"></i> Save
+        </button>
+        <button type="reset" class="btn btn-info btn-sm mr-2">
+          <i class="fa fa-trash"></i> reset
+        </button>
+        <button type="button" class="btn btn-warning btn-sm" (click)="cancel()">
+          <i class="fa fa-times"></i> back
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

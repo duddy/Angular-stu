@@ -1,7 +1,7 @@
 import { ScmBase } from '../shared/scm-base.model';
 import { ScmSharedUtil } from '../shared/scm-shared-util';
 
-export enum ProdStatus { WAIT_FOR_SAIL, ON_SALE, NOT_FOR_SALE }
+export enum ProdStatus { WAIT_FOR_SALE, ON_SALE, NOT_FOR_SALE }
 export declare type Products = Product[];
 
 export class Product extends ScmBase {

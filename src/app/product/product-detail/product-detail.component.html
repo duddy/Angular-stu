@@ -1,0 +1,106 @@
+<h4>Product {{subTitle}}</h4>
+<form (ngSubmit)="submit()" [formGroup]="productForm" novalidate>
+  <div class="container-fluid p-2 rounded">
+    <div class="row my-4">
+      <div class="col-12">
+        <div class="input-group">
+          <span class="input-group-addon">Product Number</span>
+          <input type="text" class="form-control" formControlName="no" readonly />
+        </div>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12">
+        <div class="input-group">
+          <span class="input-group-addon">Name</span>
+          <input type="text" class="form-control" formControlName="name"/>
+        </div>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12">
+        <div class="input-group">
+          <span class="input-group-addon">Price</span>
+          <input type="number" class="form-control" formControlName="listPrice"/>
+        </div>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12">
+        <div class="input-group">
+          <span class="mr-3">Product Category</span>
+          <select type="number" formControlName="catNo">
+            <option [value]="0">Choose</option>
+            <option *ngFor="let cat of usedCats" [value]="cat.no">{{cat.name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12">
+        <label class="mr-3">Condition:</label>
+        <label class="custom-control custom-radio">
+          <input type="radio" formControlName="isUse" class="custom-control-input" [value]="true">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">used</span>
+        </label>
+        <label class="custom-control custom-radio">
+          <input type="radio" formControlName="isUse" class="custom-control-input" [value]="false">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">new</span>
+        </label>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12">
+        <div class="input-group">
+          <span class="input-group-addon">qty</span>
+          <input type="number" class="form-control" formControlName="qty"/>
+        </div>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12">
+        <div class="input-group">
+          <textarea class="form-control" rows="4" placeholder="detail" formControlName="desc">
+          </textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12">
+        <div class="input-group">
+          <span class="input-group-addon">CreatedDate</span>
+          <input type="text" class="form-control" formControlName="createdTime" readonly />
+        </div>
+      </div>
+    </div>
+    <div class="row my-4" *ngIf="actionMode !== 'create'">
+      <div class="col-12">
+        <div class="input-group">
+          <span class="input-group-addon">ModifiedDate</span>
+          <input type="text" class="form-control" formControlName="updatedTime" readonly />
+        </div>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12 text-right">
+        <button type="submit" class="btn btn-info btn-sm mr-2" [disabled]="!productForm.valid">
+          <i class="fa fa-check"></i> save
+        </button>
+        <button type="reset" class="btn btn-info btn-sm mr-2" [disabled]="productForm.disabled">
+          <i class="fa fa-trash"></i> reset
+        </button>
+        <button type="button" class="btn btn-warning btn-sm mr-2" (click)="cancel()">
+          <i class="fa fa-long-arrow-left"></i> back
+        </button>
+        <button type="button" class="btn btn-success btn-sm mr-2" [disabled]="isFirstItem()" (click)="goPrevItem()">
+          <i class="fa fa-arrow-left"></i> prev
+        </button>
+        <button type="button" class="btn btn-success btn-sm" [disabled]="isLastItem()" (click)="goNextItem()">
+          <i class="fa fa-arrow-right"></i> next
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -5,7 +5,7 @@ import { DataStoreService } from 'src/app/shared/data-store.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActionMode, ScmSharedUtil } from 'src/app/shared/scm-shared-util';
 import { Category } from '../category.model';
-import { filter } from 'rxjs/operators';
+import { filter, tap, switchMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'poc-category-detail',
@@ -26,18 +26,77 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParams.pipe( filter(q=>q['action'] !== undefined) ).pipe;
+    this.route.queryParams.pipe(filter(q => {console.log(q); return q['action'] !== undefined;}),
+        tap(q => this._setActionMode(q)),
+        switchMap(q => this.route.data),
+        filter((data: {category: Category}) => data.category !== null),
+        map((data: {category: Category}) => data.category))
+      .subscribe(cat =>
+        this.actionMode === 'read' ? this.resetForm(cat) : this.categoryForm.patchValue(cat)
+      );
+  }
+
+  submit() {
+    const category: Category = this.categoryForm.value;
+
+    if(this.actionMode === 'create') {
+      const categoryFn = (no) => {
+        category.no = no;
+        return category;
+      };
+      this.database.create('category', categoryFn).subscribe(this._onSuccess(), this._onError());
+      return;
+    }
+
+    category.updatedTime = ScmSharedUtil.getCurrentDateTime();
+    this.database.update('category', category).then(this._onSuccess(), this._onError());
+  }
+
+  cancel() {
+    this.redirectToCategoryList();
+  }
+
+  private _setActionMode(q) {
+    this.actionMode = q['action'];
+    switch (this.actionMode) {
+      case 'create':
+        this.subTitle = 'add';
+        break;
+      case 'edit':
+        this.subTitle = 'mod';
+        break;
+      case 'read':
+      default:
+        this.subTitle = 'read';
+    }
+  }
+
+  private redirectToCategoryList() {
+    this.router.navigate(['category-list']);
+  }
+
+  private _onSuccess() {
+    return () => {
+      this.toastr.success(`category ${this.subTitle} confirm`,'[Category Manage]');
+      this.redirectToCategoryList();
+    };
+  }
+
+  private _onError() {
+    return e => {
+      this.toastr.error(`Category ${this.subTitle} fail`, '[Category Manage]');
+      this.redirectToCategoryList();
+    }
   }
 
   initForm() {
     this.categoryForm = this.fb.group({
       no: [0],
       name: ['', Validators.required],
-      desc: ['',Validators.compose([Validators.required, Validators.minLength(5)]), 
-             Validators.maxLength(100)],
+      desc: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(100)])],
       isUse: [true, Validators.required],
       createdTime: [ScmSharedUtil.getCurrentDateTime()],
-      updatedTime: [''], 
+      updatedTime: ['']
     });
   }
 
@@ -51,5 +110,6 @@ export class CategoryDetailComponent implements OnInit {
       updatedTime: { value: cat.updatedTime, disabled: true },
     });
   }
+
 
 }

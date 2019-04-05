@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireAction  } from '@angular/fire/database';
 import { NoCounterService } from './no-counter.service';
 import { ScmDomain } from './scm-shared-util';
 import { take, switchMap } from 'rxjs/operators';
-import { FirebaseListFactoryOpts } from '@angular/fire/database-deprecated/interfaces';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -39,14 +39,14 @@ export class DataStoreService {
       return this.db.list(`/${domain}`);
     }
 
-    findList$ByQuery(domain: ScmDomain, queryKey: string, queryVal: any) {
-      const optionFunc = (ref) => {ref.orderByChild(queryKey).equalTo(queryVal)};
-      return this._findListByOpt(domain, optionFunc).valueChanges().pipe(take(1));
+    findList$ByQuery<T>(domain: ScmDomain, queryKey: string, queryVal: any) {
+      return this.db.list<T>(`/${domain}`, ref => ref.orderByChild(queryKey).equalTo(queryVal));
     }
 
     findList$ByPage(domain: ScmDomain, pageNo, pageSize, totalCnt){
       const offset = totalCnt - pageSize * (pageNo - 1);
-      const optionFunc = (ref) => {ref.orderByChild('no').endAt(offset).limitToLast(pageSize)};
+      const optionFunc = (ref) => {return ref.orderByChild('no').endAt(offset).limitToLast(pageSize)};
+      
       return this._findListByOpt(domain, optionFunc);
     }
 

@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+input.ng-valid:not([readonly]), textarea.ng-valid:not([readonly]),select.ng-valid:not([readonly]) {
+    border-bottom: 2px solid lightgreen;
+}
+
+input.ng-valid:not([from]), textarea.ng-valid:not([from]),select.ng-valid:not([from]) {
+    border-bottom: 2px solid lightsalmon;
+}
