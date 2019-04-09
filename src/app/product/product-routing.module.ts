@@ -5,12 +5,13 @@ import { ProductDetailResolverService } from './product-detail/product-detail-re
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductListResolverService } from './product-management/product-list/product-list-resolver.service';
 
-const routes: Routes = [{ path: 'product-list', 
-                          children:[
-                              {path: '', pathMatch: 'full', resolve:{list: ProductListResolverService}, component: ProductManagementComponent},
-                              {path: 'product/:no', resolve:{detail: ProductDetailResolverService}, component: ProductDetailComponent}
-                          ]
-                        }];
+const routes: Routes = [{
+    path: 'product-list',
+    children: [
+        { path: '', pathMatch: 'full', resolve: { list: ProductListResolverService }, component: ProductManagementComponent },
+        { path: 'product/:no', resolve: { detail: ProductDetailResolverService }, component: ProductDetailComponent }
+    ]
+}];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
@@ -18,4 +19,4 @@ const routes: Routes = [{ path: 'product-list',
     providers: [ProductDetailResolverService, ProductListResolverService]
     
 })
-export class ProductRoutingModel { }
+export class ProductRoutingModule { }

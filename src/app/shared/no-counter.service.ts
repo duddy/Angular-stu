@@ -8,7 +8,9 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class NoCounterService {
 
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase) {
+    console.log('noCounterService');
+   }
 
   get(domain: ScmDomain): Observable<any> {
     return this._getNumber$(domain).snapshotChanges().pipe(map( o => o.payload.val() || 0));

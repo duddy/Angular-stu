@@ -32,10 +32,11 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParamMap.pipe(
-      filter(q => q['action'] !== undefined),
+    console.log('ngOnInit');
+    this.route.queryParams.pipe(
+      filter(q => {console.log(q); return q['action'] !== undefined}),
       tap(q => this._setActionMode(q)),
-      switchMap( q=> this.route.data),
+      switchMap( ()=> this.route.data),
       map((data: {detail: any})=> data.detail)
     ).subscribe(data=>{
       const prod: Product = data[0];
@@ -123,6 +124,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   private _setActionMode(q) {
+    console.log('Set_ActionMode' + q);
     this.actionMode = q['action'];
     switch (this.actionMode) {
       case 'create':

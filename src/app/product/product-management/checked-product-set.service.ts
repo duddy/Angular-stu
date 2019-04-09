@@ -5,11 +5,12 @@ import { Observable, Subject, BehaviorSubject, from } from 'rxjs';
   providedIn: 'root'
 })
 export class CheckedProductSetService {
-  prodNoSet = new Set();
-  hasNo$: Observable<boolean>
-  private hasNoSubject: Subject<boolean> = new BehaviorSubject(false);
+  prodNoSet = new Set(); //現在チェックした商品の番号を格納
+  hasNo$: Observable<boolean>　//チェックした番号があるか可否を渡すObservable
+  private hasNoSubject: Subject<boolean> = new BehaviorSubject(false); //チェックした番号があるか否かを渡すSubject
 
   constructor() { 
+    console.log('CheckedProductSetService');
     this.hasNo$ = this.hasNoSubject.asObservable();
   }
 

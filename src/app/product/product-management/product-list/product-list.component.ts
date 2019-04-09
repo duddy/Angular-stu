@@ -23,10 +23,12 @@ export class ProductListComponent implements OnInit {
               private prodSet: CheckedProductSetService,
               private database: DataStoreService,
               @Inject(PROD_LIST_PAGE_SIZE) pageSize: number) {
+                console.log('productListComponent');
     this.pageSize = pageSize;
   }
 
   ngOnInit() {
+    console.log('productListComponent init');
     this.fetchResolvedData();
     this.initCheckedProducts();
   }
@@ -86,6 +88,7 @@ export class ProductListComponent implements OnInit {
    */
   private fetchResolvedData() {
     const resolvedData = <{list: Products}>this.route.snapshot.data;
+    console.log(resolvedData);
     this.products = resolvedData.list;
   }
 

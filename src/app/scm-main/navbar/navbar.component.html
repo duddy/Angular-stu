@@ -3,12 +3,12 @@
   <div class="collapse navbar-collapse d-flex justify-content-end" id="nav-bar">
     <button class="btn btn-warning mr-2"
       routerLink="/product-list/product/0" [queryParams]="{action: 'create'}">
-      <i class="fa fa-plus"></i> product add 
+      <i class="fa fa-plus"></i>Product 
     </button>
     <form class="form-inline">
       <input class="form-control mr-2" type="text" placeholder="product number" #searchInput>
       <button class="btn btn-warning" type="button"
-              (click)="searchProduct(searchInput.value)">product search</button>
+              (click)="searchProduct(searchInput.value)">Search</button>
     </form>
     <button class="btn btn-warning ml-2" (click)="checkSession()">{{sessionBtnName}}</button>
   </div>

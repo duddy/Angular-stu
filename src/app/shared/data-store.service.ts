@@ -47,6 +47,7 @@ export class DataStoreService {
       const offset = totalCnt - pageSize * (pageNo - 1);
       const optionFunc = (ref) => {return ref.orderByChild('no').endAt(offset).limitToLast(pageSize)};
       
+      console.log('findList$ByPage');
       return this._findListByOpt(domain, optionFunc);
     }
 

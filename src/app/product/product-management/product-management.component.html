@@ -1,3 +1,29 @@
-<p>
-  product-management works!
-</p>
+<div class="container-fluid">
+  <div class="row my-4">
+    <div class="col-12">
+      <poc-button-group (onClicked)="clickedBtn($event)"></poc-button-group>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <span>total product: {{totalItemCnt}}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <poc-product-list [totalItemCnt]="totalItemCnt"></poc-product-list>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 text-right">
+      <label for="cur-page-size">max item: </label>
+      <input type="number" id="cur-page-size" #pageSizeInput [value]="pageSize">
+      <button class="btn btn-info btn-sm" type="button" (click)="pageSizeChanged(pageSizeInput.value)">confirm</button>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-4">
+    <ngb-pagination [pageSize]="pageSize" [collectionSize]="totalItemCnt"
+                    [maxSize]="10" [ellipses]="false" [page]="pageNo"
+                    (pageChange)="pageNoChanged($event)"></ngb-pagination>
+  </div>
+</div>
