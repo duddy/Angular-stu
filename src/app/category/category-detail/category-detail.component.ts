@@ -6,16 +6,18 @@ import { ToastrService } from 'ngx-toastr';
 import { ActionMode, ScmSharedUtil } from 'src/app/shared/scm-shared-util';
 import { Category } from '../category.model';
 import { filter, tap, switchMap, map } from 'rxjs/operators';
+import { CanComponentDeactivate } from 'src/app/shared/can-deativate-guard.service';
 
 @Component({
   selector: 'poc-category-detail',
   templateUrl: './category-detail.component.html',
   styleUrls: ['./category-detail.component.css']
 })
-export class CategoryDetailComponent implements OnInit {
+export class CategoryDetailComponent implements OnInit, CanComponentDeactivate {
   subTitle: string;
   actionMode: ActionMode;
   categoryForm: FormGroup;
+  private submitted = false;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -34,6 +36,11 @@ export class CategoryDetailComponent implements OnInit {
       .subscribe(cat =>
         this.actionMode === 'read' ? this.resetForm(cat) : this.categoryForm.patchValue(cat)
       );
+  }
+
+  canDeactivate() {
+    if(this.submitted || this.categoryForm.pristine) return true;
+    return confirm('not saved yet');
   }
 
   submit() {
@@ -78,6 +85,7 @@ export class CategoryDetailComponent implements OnInit {
   private _onSuccess() {
     return () => {
       this.toastr.success(`category ${this.subTitle} confirm`,'[Category Manage]');
+      this.submitted = true;
       this.redirectToCategoryList();
     };
   }

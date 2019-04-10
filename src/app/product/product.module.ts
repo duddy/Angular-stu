@@ -10,9 +10,10 @@ import { PROD_LIST_PAGE_SIZE } from './products.tokens';
 import { CheckedProductSetService } from './product-management/checked-product-set.service';
 import { ProductBulkUpdaterService } from './product-management/product-bulk-updater.service';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProductStatusPipe } from './product-status.pipe';
 
 @NgModule({
-  declarations: [ProductManagementComponent, ProductDetailComponent, ButtonGroupComponent, ProductListComponent],
+  declarations: [ProductManagementComponent, ProductDetailComponent, ButtonGroupComponent, ProductListComponent, ProductStatusPipe],
   imports: [
     CommonModule, ProductRoutingModule, ReactiveFormsModule, FormsModule, ReactiveFormsModule, NgbPaginationModule
   ],
