@@ -3,6 +3,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
+import { ProductSearchService } from './product-search.service';
+import { Router, NavigationExtras } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'poc-navbar',
@@ -13,9 +16,13 @@ export class NavbarComponent implements OnInit {
   appTitle = 'Product Management';
   session$: Observable<boolean>;
   sessionBtnName = 'login';
+  searchNum = '';
   
 
-  constructor(private afAuth: AngularFireAuth) {}
+  constructor(private afAuth: AngularFireAuth, 
+    private serchProduct: ProductSearchService, 
+    private router: Router,
+    private toastr: ToastrService) {}
 
   ngOnInit() {
     this.session$ = this.afAuth.authState.pipe(map(user => !!user));
@@ -28,7 +35,16 @@ export class NavbarComponent implements OnInit {
 
   }
 
-  searchProduct(no: number) {
-    console.log(`search: ${no}`);
+  searchProduct(no) {
+    this.serchProduct.searchProduct(no).subscribe((payloay)=> {
+      if(no == '' || !payloay ) {
+        this.toastr.error(`Product ${no} is not exists`,'Search fail');
+      } else {
+        let navigationExtras: NavigationExtras = {
+          queryParams: {action: 'edit'}
+        };
+        this.router.navigate(['product-list', 'product', no], navigationExtras);
+      }
+    });
   }
 }
